@@ -1,17 +1,23 @@
 
-
-function fetchData(url,callback){
-    fetch(url)
-    .then(response=>response.json())
-    .then (data=>callback(null,data))
-    .catch(error=>callback(error,null));
+function loadImage(url,callback){
+    var img=new Image();
+    img.addEventListener('load',()=>{
+        callback(null,img);
+    })
+    img.addEventListener('error',()=>{
+        callback(new Error(`failed to load the img at ${url}`));
+    })
+    img.src=url;
 }
 
-fetchData('https://catfact.ninja/facts',(err,data)=>{
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log(data);
+
+
+
+
+
+loadImage('https://www.shutterstock.com/image-photo/calm-weather-on-sea-ocean-600nw-2212935531.jpg',(err,data)=>{
+    if(err)console.log(err);
+    else {
+        document.getElementById("khali").appendChild(data);
     }
 })
