@@ -7,9 +7,13 @@
 </head>
 <body>
     
-    <input type="text" placeholder="Ready To fill">
-    <button onclick="handleData('afterContent')">Submit</button>
-    <div id="afterContent" style="display: none;">Thank you for submitting the form will reach out to you</div>
+    <form id="myForm">
+            <input id="user" type="text" required="true" placeholder="username">
+            <input id="pass" type="text" required="true" placeholder="password">
+            <button id="bton" onclick="formValidate('myForm')">submit</button>
+            <div id="message" ></div>
+
+    </form>
     <script src="practice.js"></script>
 </body>
 </html>
