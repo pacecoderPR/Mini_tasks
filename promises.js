@@ -1,21 +1,23 @@
-// fetch api using normal callback function
 
-async  function fetchData(url, callback){
-    try{
-        const res=await fetch(url);
-      const data=await res.json();
-    return Promise.resolve(data)
-    }
-    catch(err){
-        return Promise.reject(err);
-        
-    }
-      
-
+async function fetchData(urls){
+  try{
+      const responses=await Promise.all(urls.map(url=>fetch(url)))
+      const data=await Promise.all(responses.map(response=>response.json()));
+      return data;
+  }
+  catch(err){
+    return Promise.reject(err);
+  }
 }
 
 
 
-fetchData('https://jsonplaceholder.typicode.com/posts/1')
-.then(data => console.log(data))
-.catch(error=> console.error(error));
+const urls=[
+    "https://jsonplaceholder.typicode.com/posts/1",
+    "https://jsonplaceholder.typicode.com/comments/1",
+    "https://jsonplaceholder.typicode.com/albums/1"
+]
+
+fetchData(urls)
+.then(responses=> console.log(responses))
+.catch(err=> console.error(err))
